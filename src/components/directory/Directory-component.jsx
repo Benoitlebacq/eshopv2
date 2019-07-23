@@ -52,6 +52,7 @@ export default class Directory extends React.Component {
               title={section.title}
               image={section.imageUrl}
               size={section.size}
+              linkUrl={section.linkUrl}
             />
           );
         })}
