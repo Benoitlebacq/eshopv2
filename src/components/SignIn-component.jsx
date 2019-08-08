@@ -30,7 +30,7 @@ export default class SignIn extends Component {
 
         <form onSubmit={this.handleSubmit}>
           <FormInput
-            autocomplete="off"
+            autoComplete="off"
             name="email"
             type="email"
             label="email"
