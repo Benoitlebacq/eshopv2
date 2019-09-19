@@ -7,9 +7,9 @@ import directoryReducer from "../redux/directory/directory-reducer";
 import shopReducer from "../redux/shop/shop-reducer";
 
 const persistConfig = {
-  key: "root",
+  key: "root", //dis a  persist ou on veut commencer a enregistrer le json , ici on veut tout.
   storage,
-  whitelist: ["cart"]
+  whitelist: ["cart"] // nom en string de tous les reducers qu'on veut persister
 };
 
 const rootReducer = combineReducers({
@@ -19,4 +19,4 @@ const rootReducer = combineReducers({
   shop: shopReducer
 });
 
-export default persistReducer(persistConfig, rootReducer);
+export default persistReducer(persistConfig, rootReducer); //on passe cette version modifié de notre rootReducer ,avec la Persist config

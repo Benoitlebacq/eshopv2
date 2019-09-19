@@ -6,7 +6,6 @@ import { selectCollection } from "../../redux/shop/shop-selector";
 import "./collection.scss";
 
 const Collection = ({ collection }) => {
-  console.log("collection", collection);
   const { title, items } = collection;
   return (
     <div className="collection-page">
@@ -22,6 +21,7 @@ const Collection = ({ collection }) => {
 
 const mapStateToProps = (state, ownProps) => ({
   collection: selectCollection(ownProps.match.params.collectionId)(state)
+  // ici on passe le state car contrairement aux autres selecteur celui ci a besoin d 'une partie du state qui depend de l'url parameter
 });
 
 export default connect(mapStateToProps)(Collection);
