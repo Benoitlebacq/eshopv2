@@ -3,13 +3,13 @@ import "firebase/firestore";
 import "firebase/auth";
 
 const config = {
-  apiKey: "AIzaSyCf8zMKxCPsRu-j1oOqnR2VmYdI-mqNTZo",
-  authDomain: "eshopproject-9ffc6.firebaseapp.com",
-  databaseURL: "https://eshopproject-9ffc6.firebaseio.com",
-  projectId: "eshopproject-9ffc6",
-  storageBucket: "eshopproject-9ffc6.appspot.com",
-  messagingSenderId: "168851956589",
-  appId: "1:168851956589:web:74ea2e0e9ebaf150"
+  apiKey: "AIzaSyCdHT-AYHXjF7wOrfAchX4PIm3cSj5tn14",
+  authDomain: "crwn-db.firebaseapp.com",
+  databaseURL: "https://crwn-db.firebaseio.com",
+  projectId: "crwn-db",
+  storageBucket: "crwn-db.appspot.com",
+  messagingSenderId: "850995411664",
+  appId: "1:850995411664:web:7ddc01d597846f65"
 };
 
 firebase.initializeApp(config);
@@ -39,16 +39,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const addCollectionsAndDocuments = async (
+export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
 ) => {
   const collectionRef = firestore.collection(collectionKey);
+
   const batch = firestore.batch();
   objectsToAdd.forEach(obj => {
-    const newDocRef = collectionRef.doc(); // on laisse vide pour que firebase crée une clef unique pour chaque obj
+    const newDocRef = collectionRef.doc();
     batch.set(newDocRef, obj);
   });
+
   return await batch.commit();
 };
 
@@ -66,16 +68,24 @@ export const convertCollectionsSnapshotToMap = collections => {
 
   return transformedCollection.reduce((accumulator, collection) => {
     accumulator[collection.title.toLowerCase()] = collection;
-
     return accumulator;
   }, {});
+};
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
 };
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;
