@@ -1,8 +1,5 @@
 import { takeLatest, call, put, all } from "redux-saga/effects";
-// put va déclancher une action (comme dispatch)
-// call va prendre une fonction et ce qu'on lui passe en para en 2e val
-// takeEvery va ecouter une action et va relancer (nouvelles créée) la fonction en 2e para a chq fois qu'elle se declenchera
-// takeLatest fait comme take every mais ne se declenche qu'une seule fois , la derniere qui est appelée
+
 import {
   firestore,
   convertCollectionsSnapshotToMap
@@ -17,7 +14,7 @@ import ShopActionTypes from "./shop.types";
 
 export function* fetchCollectionsAsync() {
   try {
-    const collectionRef = firestore.collection("collections");
+    const collectionRef = firestore.collection("collection");
     const snapshot = yield collectionRef.get();
     const collectionsMap = yield call(
       convertCollectionsSnapshotToMap,
